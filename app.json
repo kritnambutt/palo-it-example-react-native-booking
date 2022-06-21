@@ -1,0 +1,8 @@
+{
+  "name": "bookingapp",
+  "displayName": "bookingapp",
+  "expo": {
+    "name": "My app",
+    "slug": "my-app"
+  }
+}

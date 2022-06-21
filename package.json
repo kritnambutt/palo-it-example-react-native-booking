@@ -7,9 +7,10 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "e2e:test": "detox test -c ios.release",
     "e2e:build": "detox build -c ios.release",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "e2e:ci": "npm run e2e:build && npm run e2e:test -- --cleanup"
   },
   "dependencies": {
     "react": "17.0.2",

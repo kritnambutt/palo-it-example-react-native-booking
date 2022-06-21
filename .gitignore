@@ -62,3 +62,5 @@ buck-out/
 
 # History
 .history
+
+package-lock.json

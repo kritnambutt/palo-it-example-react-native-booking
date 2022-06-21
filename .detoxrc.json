@@ -1,17 +1,28 @@
 {
-  "testRunner": "jest",
-  "runnerConfig": "e2e/config.json",
-  "skipLegacyWorkersInjection": true,
-  "apps": {
+  "devices": {​
+    "simulator": {​
+      "type": "ios.simulator",​
+      "device": {​
+        "type": "iPhone 12"​
+      }​
+    },​
+    "emulator": {​
+      "type": "android.emulator",​
+      "device": {​
+        "avdName": "Pixel_3a_API_33_arm64-v8a"​
+      }​
+    }​
+  },
+  "apps": {​
     "ios.debug": {​
       "type": "ios.app",​
-      "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/bookingapp.app",​
-      "build": "xcodebuild -workspace ios/bookingapp.xcworkspace -scheme bookingapp -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build"​
+      "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/PROJECT_NAME.app",​
+      "build": "xcodebuild -workspace ios/PROJECT_NAME.xcworkspace -scheme PROJECT_NAME -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build"​
     },​
     "ios.release": {​
       "type": "ios.app",​
-      "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/bookingapp.app",​
-      "build": "export RCT_NO_LAUNCH_PACKAGER=true && xcodebuild -workspace ios/bookingapp.xcworkspace -scheme bookingapp -configuration Release -sdk iphonesimulator -derivedDataPath ios/build -quiet"​
+      "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/PROJECT_NAME.app",​
+      "build": "export RCT_NO_LAUNCH_PACKAGER=true && xcodebuild -workspace ios/PROJECT_NAME.xcworkspace -scheme PROJECT_NAME -configuration Release -sdk iphonesimulator -derivedDataPath ios/build -quiet"​
     },​
     "android.debug": {​
       "type": "android.apk",​
@@ -22,23 +33,9 @@
       "type": "android.apk",​
       "binaryPath": "android/app/build/outputs/apk/release/app-release.apk",​
       "build": "cd android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release && cd .."​
-    }
+    }​
   },
-  "devices": {
-    "simulator": {​
-      "type": "ios.simulator",​
-      "device": {​
-        "type": "iPhone 12"​
-      }​
-    },​
-    "emulator": {​
-      "type": "android.emulator",​
-      "device": {​
-        "avdName": "Pixel_3a_API_30_x86"​
-      }​
-    }
-  },
-  "configurations": {
+  "configurations": {​
     "ios.sim.release": {​
       "device": "simulator",​
       "app": "ios.release"​
@@ -54,6 +51,6 @@
     "android.emu.release": {​
       "device": "emulator",​
       "app": "android.release"​
-    }
+    }​
   }
 }

@@ -8,9 +8,10 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "e2e:test": "detox test -c ios.release",
-    "e2e:build": "detox build -c ios.release",
-    "e2e:ci": "npm run e2e:build && npm run e2e:test -- --cleanup"
+    "e2e:build-ios": "detox build --configuration ios",
+    "e2e:build-android": "detox build --configuration android",
+    "e2e:run-ios": "detox test --configuration ios",
+    "e2e:run-android": "detox test --configuration android"
   },
   "dependencies": {
     "react": "17.0.2",
@@ -21,8 +22,6 @@
     "@babel/register": "^7.17.7",
     "@babel/runtime": "^7.18.3",
     "@cucumber/cucumber": "^8.3.0",
-    "expo": "~45.0.0",
-    "expo-status-bar": "~1.3.0",
     "@react-native-community/eslint-config": "^2.0.0",
     "@types/react-native": "^0.67.3",
     "@types/react-test-renderer": "^17.0.1",
@@ -31,6 +30,8 @@
     "detox": "^19.7.1",
     "eslint": "^7.32.0",
     "eslint-plugin-detox": "^1.0.0",
+    "expo": "~45.0.0",
+    "expo-status-bar": "~1.3.0",
     "metro-react-native-babel-preset": "^0.67.0",
     "react-test-renderer": "17.0.2",
     "typescript": "^4.4.4"
@@ -48,5 +49,16 @@
       "json",
       "node"
     ]
+  },
+  "detox": {
+    "test-runner": "jest",
+    "configurations": {
+      "ios.release": {
+        "binaryPath": "./ios/build/Build/Products/Release-iphonesimulator/bookingapp.app",
+        "build": "xcodebuild -workspace ios/bookingapp.xcworkspace -configuration release -scheme bookingapp -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "name": "iPhone X"
+      }
+    }
   }
 }

@@ -5,7 +5,7 @@ import org.apache.tools.ant.taskdefs.condition.Os
 android {
     defaultConfig {
         // ...
-        testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type
+        testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type​
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 }
@@ -37,7 +37,7 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
 
-        androidTestImplementation('com.wix:detox:+')
+        androidTestImplementation('com.wix:detox:+')​
         implementation 'androidx.appcompat:appcompat:1.1.0' // (check what the latest version is!)
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }

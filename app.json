@@ -2,7 +2,7 @@
   "name": "bookingapp",
   "displayName": "bookingapp",
   "expo": {
-    "name": "My app",
+    "name": "bookingapp",
     "slug": "my-app"
   }
 }

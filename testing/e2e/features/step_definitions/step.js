@@ -1,6 +1,6 @@
 /* eslint-env detox/detox */​
-import {element, expect} from 'detox'​
-import {Given, When, Then} from '@cucumber/cucumber';
+import { element, expect } from 'detox'​
+import { Given, When, Then } from '@cucumber/cucumber';
 ​
 Given('I launched the app', async () => {​
   // do nothing​

@@ -11,111 +11,111 @@ import React from 'react';
 
 // ** Import Thrid party
 import tw from 'twrnc';
-import {Button} from 'galio-framework';
 
+// ** Import styles
+import styles from '../../assets/styles/stylesheet';
+
+// ** Import custom components
+import BackgroundOverlay from '../../components/bg-overlay';
+
+// ** Import constants
 import Images from '../../constants/Images';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const {width, height} = Dimensions.get('screen');
+
+const CustomStyles = StyleSheet.create({
+  default_font: {},
+});
+
+export interface CustomButtonProps {
+  onPress?: any;
+  outlined?: boolean;
+  title?: String;
+  color?: 'success';
+}
+
+const CustomButton = ({
+  onPress = () => {},
+  title,
+  outlined = false,
+  color = 'success',
+}: CustomButtonProps) => {
+  return (
+    <TouchableOpacity
+      style={tw.style(
+        `mt-4 flex justify-center items-center rounded-lg`,
+        {
+          width: width - 15 * 2 - 15,
+          height: 60,
+        },
+        outlined && `border-2 ${color === 'success' && 'border-[#68c99e]'}`,
+        !outlined && color === 'success' && 'bg-[#68c99e]',
+      )}
+      onPress={onPress}>
+      <Text
+        style={tw.style(
+          `text-base font-semibold`,
+          outlined && color === 'success' ? 'text-[#68c99e]' : 'text-white',
+        )}>
+        {title}
+      </Text>
+    </TouchableOpacity>
+  );
+};
+
+const BoxContainer = () => {
+  return (
+    <View style={styles.box_form}>
+      <Text style={[tw`text-base`, CustomStyles.default_font]}>
+        Let's make a meeting room booking easier.
+      </Text>
+      <Text style={tw`mt-7 text-base`}>
+        Meeting Room Booking will help you to ensure you will have a room for
+        your meeting. Manage reservation, cancellation, ongoing or finished
+        booking.
+      </Text>
+
+      <View style={tw`mt-4`}>
+        <CustomButton onPress={() => {}} title="Login" color="success" />
+        <CustomButton
+          onPress={() => {}}
+          title="Sign Up"
+          color="success"
+          outlined
+        />
+      </View>
+    </View>
+  );
+};
+
+const HeaderSection = () => {
+  return (
+    <View style={tw`absolute top-24 left-5 z-40`}>
+      <Image
+        style={{width: width / 3, height: (width / 3) * 0.29}}
+        source={Images.LogoImgRmBg}
+      />
+      <Text style={[tw`mt-3 text-white`, styles.default_font]}>THAILAND</Text>
+      <View style={tw`mt-5`}>
+        <Text style={tw`mt-3 text-white text-3xl font-semibold`}>Meeting</Text>
+        <Text style={tw`mt-2 text-white text-3xl font-semibold`}>
+          Room Booking
+        </Text>
+      </View>
+    </View>
+  );
+};
 
 const LoginScreen = () => {
   return (
     <SafeAreaView style={tw`flex-1`}>
-      <View style={styles.overlay} />
-      <ImageBackground
-        source={{
-          uri: 'https://www.flexstudiospace.com/wp-content/uploads/2019/09/space_office_DSC00382.jpg',
-        }}
-        resizeMode="cover"
-        style={tw`flex-1 justify-center opacity-80`}
-      />
+      <BackgroundOverlay />
+      <HeaderSection />
 
-      <View style={tw`absolute top-24 left-5 z-40`}>
-        <Image
-          style={{width: width / 3, height: (width / 3) * 0.29}}
-          source={require('../../assets/imgs/logo/logo_paloit_th_rm_bg.png')}
-        />
-        <Text style={tw`mt-3 text-white`}>THAILAND</Text>
-        <View style={tw`mt-5`}>
-          <Text style={tw`mt-3 text-white text-3xl font-semibold`}>
-            Meeting
-          </Text>
-          <Text style={tw`mt-2 text-white text-3xl font-semibold`}>
-            Room Booking
-          </Text>
-        </View>
-      </View>
-
-      <View style={styles.box_form}>
-        <Text style={tw`text-base`}>
-          Let's make a meeting room booking easier.
-        </Text>
-        <Text style={tw`mt-7 text-base`}>
-          Meeting Room Booking will help you to ensure you will have a room for
-          your meeting. Manage reservation, cancellation, ongoing or finished
-          booking.
-        </Text>
-
-        <View style={tw`mt-4`}>
-          <View
-            style={tw.style(
-              `bg-[#68c99e] flex justify-center items-center rounded-lg hover:bg-white`,
-              {
-                width: width - 15 * 2 - 15,
-                height: 60,
-              },
-            )}>
-            <Text style={tw`text-white text-base font-semibold`}>Login</Text>
-          </View>
-
-          <View
-            style={tw.style(
-              `mt-4 border-2 border-[#68c99e] flex justify-center items-center rounded-lg`,
-              {
-                width: width - 15 * 2 - 15,
-                height: 60,
-              },
-            )}>
-            <Text style={tw`text-[#68c99e] text-base font-semibold`}>
-              Sign Up
-            </Text>
-          </View>
-
-          {/* <Button
-            color="success"
-            style={tw.style(``, {
-              width: width - 15 * 2 - 15,
-              height: 60,
-              fontSize: '20px',
-              fontWeight: 500,
-            })}>
-            Login
-          </Button> */}
-        </View>
-      </View>
+      <BoxContainer />
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0,0,0,0.4)',
-    zIndex: 20,
-  },
-  box_form: {
-    backgroundColor: '#FFFFFF',
-    zIndex: 40,
-    width: width,
-    height: height / 2,
-    borderRadius: 30,
-    position: 'absolute',
-    left: 0,
-    top: height / 2,
-    paddingTop: 35,
-    paddingLeft: 15,
-    paddingRight: 15,
-    paddingBottom: 15,
-  },
-});
 
 export default LoginScreen;

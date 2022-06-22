@@ -98,8 +98,8 @@ module.exports = {
       avatar: '0px 15px 30px rgba(0, 0, 0, 0.16)',
     },
     fontFamily: {
-      body: ["'Kanit', sans-serif"],
-      code: ["'Kanit', sans-serif"],
+      body: ["'Rubik', sans-serif"],
+      code: ["'Rubik', sans-serif"],
     },
   },
 };

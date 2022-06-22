@@ -13,8 +13,25 @@ import {Image} from 'react-native';
 import AppLoading from 'expo-app-loading';
 import {useFonts} from 'expo-font';
 import {Asset} from 'expo-asset';
+
+// ** Import Thrid party
 import {Block, GalioProvider} from 'galio-framework';
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  Rubik_300Light,
+  Rubik_300Light_Italic,
+  Rubik_400Regular,
+  Rubik_400Regular_Italic,
+  Rubik_500Medium,
+  Rubik_500Medium_Italic,
+  Rubik_600SemiBold,
+  Rubik_600SemiBold_Italic,
+  Rubik_700Bold,
+  Rubik_700Bold_Italic,
+  Rubik_800ExtraBold,
+  Rubik_800ExtraBold_Italic,
+  Rubik_900Black,
+  Rubik_900Black_Italic,
+} from '@expo-google-fonts/rubik';
 
 // Before rendering any navigation stack
 // import {enableScreens} from 'react-native-screens';
@@ -24,7 +41,11 @@ import Screens from './navigation/Screens';
 import {Images, AppTheme} from './constants';
 
 // cache app images
-const assetImages = [Images.DefaultImgBackground, Images.LogoImgColour];
+const assetImages = [
+  Images.DefaultImgBackground,
+  Images.LogoImgColour,
+  Images.LogoImgRmBg,
+];
 
 function cacheImages(images: any) {
   return images.map((image: any) => {
@@ -39,7 +60,20 @@ function cacheImages(images: any) {
 export default () => {
   const [isLoadingComplete, setLoading] = useState(false);
   let [fontsLoaded] = useFonts({
-    ArgonExtra: require('./assets/fonts/argon.ttf'),
+    Rubik_300Light,
+    Rubik_400Regular,
+    Rubik_500Medium,
+    Rubik_600SemiBold,
+    Rubik_700Bold,
+    Rubik_800ExtraBold,
+    Rubik_900Black,
+    Rubik_300Light_Italic,
+    Rubik_400Regular_Italic,
+    Rubik_500Medium_Italic,
+    Rubik_600SemiBold_Italic,
+    Rubik_700Bold_Italic,
+    Rubik_800ExtraBold_Italic,
+    Rubik_900Black_Italic,
   });
 
   function _loadResourcesAsync() {

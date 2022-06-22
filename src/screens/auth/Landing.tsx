@@ -5,7 +5,6 @@ import {
   SafeAreaView,
   ImageBackground,
   Image,
-  TextInput,
   StyleSheet,
 } from 'react-native';
 import React from 'react';
@@ -27,13 +26,6 @@ const {width, height} = Dimensions.get('screen');
 
 const CustomStyles = StyleSheet.create({
   default_font: {},
-  input: {
-    height: 50,
-    margin: 12,
-    borderWidth: 0.3,
-    padding: 10,
-    borderColor: '#9ca3af',
-  },
 });
 
 export interface CustomButtonProps {
@@ -54,9 +46,8 @@ const CustomButton = ({
       style={tw.style(
         `mt-4 flex justify-center items-center rounded-lg`,
         {
-          width: width - 25 * 2,
+          width: width - 15 * 2 - 15,
           height: 60,
-          marginLeft: 10,
         },
         outlined && `border-2 ${color === 'success' && 'border-[#68c99e]'}`,
         !outlined && color === 'success' && 'bg-[#68c99e]',
@@ -74,39 +65,33 @@ const CustomButton = ({
 };
 
 const BoxContainer = (props: any) => {
-  const [email, onChangeEmail] = React.useState('');
-  const [password, onChangePassword] = React.useState('');
-
   return (
     <View style={styles.box_form}>
-      <View>
-        <Text style={tw`ml-[15px]`}>Email</Text>
-        <TextInput
-          style={CustomStyles.input}
-          onChangeText={onChangeEmail}
-          value={email}
-          placeholder="Email"
-        />
-      </View>
+      <Text style={[tw`text-base`, CustomStyles.default_font]}>
+        Let's make a meeting room booking easier.
+      </Text>
+      <Text style={tw`mt-7 text-base`}>
+        Meeting Room Booking will help you to ensure you will have a room for
+        your meeting. Manage reservation, cancellation, ongoing or finished
+        booking.
+      </Text>
 
-      <View style={tw`mt-2`}>
-        <Text style={tw`ml-[15px]`}>Password</Text>
-        <TextInput
-          style={CustomStyles.input}
-          onChangeText={onChangePassword}
-          value={password}
-          placeholder="Password"
-          secureTextEntry={true}
+      <View style={tw`mt-4`}>
+        <CustomButton
+          onPress={() => {
+            props.navigation.navigate('Login');
+          }}
+          title="Login"
+          color="success"
         />
-      </View>
-
-      <View style={tw`mt-0`}>
-        <CustomButton onPress={() => {}} title="Login" color="success" />
-        <TouchableOpacity
-          style={tw`mt-2 flex justify-center items-center`}
-          onPress={() => props.navigation.navigate('Landing')}>
-          <Text style={tw`text-lg`}>{'Back'}</Text>
-        </TouchableOpacity>
+        <CustomButton
+          onPress={() => {
+            props.navigation.navigate('Signup');
+          }}
+          title="Sign Up"
+          color="success"
+          outlined
+        />
       </View>
     </View>
   );
@@ -130,7 +115,7 @@ const HeaderSection = (props: any) => {
   );
 };
 
-const LoginScreen = (props: any) => {
+const LandingScreen = (props: any) => {
   return (
     <SafeAreaView style={tw`flex-1`}>
       <BackgroundOverlay {...props} />
@@ -141,4 +126,4 @@ const LoginScreen = (props: any) => {
   );
 };
 
-export default LoginScreen;
+export default LandingScreen;

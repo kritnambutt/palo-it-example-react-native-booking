@@ -18,12 +18,22 @@ import BookingHistory from '../screens/booking/BookingHistory';
 
 // stack screen for room
 import RoomSearch from '../screens/room/RoomSearch';
+import LandingScreen from '../screens/auth/Landing';
 
 const Stack = createStackNavigator();
 
 const AuthStack = () => {
   return (
-    <Stack.Navigator initialRouteName="Login">
+    <Stack.Navigator initialRouteName="Landing">
+      <Stack.Screen
+        name="Landing"
+        component={LandingScreen}
+        options={{
+          title: 'Landing',
+          headerShown: false,
+        }}
+      />
+
       <Stack.Screen
         name="Login"
         component={Login}

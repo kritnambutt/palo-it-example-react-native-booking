@@ -3,6 +3,10 @@
   "displayName": "bookingapp",
   "expo": {
     "name": "bookingapp",
-    "slug": "my-app"
+    "slug": "my-app",
+    "packagerOpts": {
+      "config": "metro.config.js",
+      "sourceExts": ["js", "jsx", "scss", "sass"]
+    }
   }
 }

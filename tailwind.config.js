@@ -102,11 +102,4 @@ module.exports = {
       code: ["'Kanit', sans-serif"],
     },
   },
-  plugins: [
-    require('@tailwindcss/forms')({
-      strategy: 'class',
-    }),
-    require('tailwindcss-rtl'),
-    require('flowbite/plugin'),
-  ],
 };

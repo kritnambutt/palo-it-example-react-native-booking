@@ -1,5 +1,5 @@
 // local imgs
-const DefaultImgBackground = require('../assets/imgs/register-bg.jpg');
+const DefaultImgBackground = require('../assets/imgs/background-img.jpg');
 
 export default {
   DefaultImgBackground,

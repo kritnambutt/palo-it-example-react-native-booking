@@ -11,15 +11,9 @@ import React from 'react';
 
 // ** Import Thrid party
 import tw from 'twrnc';
-import {ThemeProvider, Button, createTheme} from '@rneui/themed';
+import {Button} from 'galio-framework';
 
 import Images from '../../constants/Images';
-
-const theme = createTheme({
-  Button: {
-    raised: true,
-  },
-});
 
 const {width, height} = Dimensions.get('screen');
 
@@ -64,7 +58,7 @@ const LoginScreen = () => {
         <View style={tw`mt-4`}>
           <View
             style={tw.style(
-              `bg-[#68c99e] flex justify-center items-center rounded-lg`,
+              `bg-[#68c99e] flex justify-center items-center rounded-lg hover:bg-white`,
               {
                 width: width - 15 * 2 - 15,
                 height: 60,
@@ -85,18 +79,8 @@ const LoginScreen = () => {
               Sign Up
             </Text>
           </View>
-          {/* <Button
-            color="success"
-            style={tw.style(``, {
-              width: width - 15 * 2 - 15,
-              height: 60,
-              fontSize: '20px',
-              fontWeight: 500,
-            })}>
-            Login
-          </Button>
 
-          <Button
+          {/* <Button
             color="success"
             style={tw.style(``, {
               width: width - 15 * 2 - 15,

@@ -24,7 +24,7 @@ import Screens from './navigation/Screens';
 import {Images, AppTheme} from './constants';
 
 // cache app images
-const assetImages = [Images.DefaultImgBackground];
+const assetImages = [Images.DefaultImgBackground, Images.LogoImgColour];
 
 function cacheImages(images: any) {
   return images.map((image: any) => {

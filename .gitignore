@@ -64,3 +64,4 @@ buck-out/
 .history
 
 package-lock.json
+.expo/packager-info.json

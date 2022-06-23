@@ -52,7 +52,7 @@ const CustomButton = ({
   return (
     <TouchableOpacity
       style={tw.style(
-        `mt-4 flex justify-center items-center rounded-lg`,
+        `mt-4 ml-[10px] flex justify-center items-center rounded-lg`,
         {
           width: width - 25 * 2,
           height: 60,

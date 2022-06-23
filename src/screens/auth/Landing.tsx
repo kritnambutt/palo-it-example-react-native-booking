@@ -44,9 +44,9 @@ const CustomButton = ({
   return (
     <TouchableOpacity
       style={tw.style(
-        `mt-4 flex justify-center items-center rounded-lg`,
+        `mt-4 ml-[10px] flex justify-center items-center rounded-lg`,
         {
-          width: width - 15 * 2 - 15,
+          width: width - 25 * 2,
           height: 60,
         },
         outlined && `border-2 ${color === 'success' && 'border-[#68c99e]'}`,

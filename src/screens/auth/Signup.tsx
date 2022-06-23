@@ -6,21 +6,26 @@ import {
   ImageBackground,
   Image,
   TextInput,
+  Pressable,
   StyleSheet,
 } from 'react-native';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 // ** Import Thrid party
 import tw from 'twrnc';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons/faArrowLeft';
+import {faEye, faEyeSlash} from '@fortawesome/free-regular-svg-icons';
 
 // ** Import styles
 import styles from '../../assets/styles/stylesheet';
 
 // ** Import custom components
 import BackgroundOverlay from '../../components/bg-overlay';
+
+// ** Import Hooks
+import {useTogglePasswordVisibility} from '../../hook/useTogglePasswordVisibility';
 
 // ** Import constants
 import Images from '../../constants/Images';
@@ -67,6 +72,11 @@ export interface FormInputProps {
   value?: any;
   placeholder?: any;
   secureTextEntry?: boolean;
+}
+
+export interface onChangeInputProps {
+  value?: any;
+  stateName?: String;
 }
 
 const CustomButton = ({
@@ -146,6 +156,26 @@ const HeaderSection = (props: any) => {
 };
 
 const BoxContainer = (props: any) => {
+  const [state, _setState] = useState({
+    email: '',
+    password: '',
+    firstname: '',
+    lastname: '',
+  });
+
+  const {email, password, firstname, lastname} = state;
+  const setState = (newState: any) => {
+    _setState({...state, ...newState});
+  };
+
+  const {passwordVisibility, handlePasswordVisibility} =
+    useTogglePasswordVisibility({});
+
+  const onChangeInput = ({value, stateName = ''}: onChangeInputProps) => {
+    console.log('onChangeInput: ' + JSON.stringify({value, stateName}));
+    setState({[stateName]: value});
+  };
+
   return (
     <View style={CustomStyles.box_form}>
       <FormInput
@@ -159,12 +189,27 @@ const BoxContainer = (props: any) => {
         placeholder="lastname"
       />
       <FormInput label="Email" stateName="email" placeholder="email" />
-      <FormInput
-        label="Password"
-        stateName="password"
-        placeholder="password"
-        secureTextEntry={true}
-      />
+      <View style={tw`mt-2 relative`}>
+        <Text style={tw`ml-[15px]`}>Password</Text>
+        <TextInput
+          style={CustomStyles.input}
+          onChangeText={value => onChangeInput({value, stateName: 'password'})}
+          value={password}
+          placeholder="Password"
+          secureTextEntry={!passwordVisibility}
+          enablesReturnKeyAutomatically
+        />
+
+        <Pressable
+          style={tw`absolute top-[45px] right-[25px]`}
+          onPress={handlePasswordVisibility}>
+          <FontAwesomeIcon
+            icon={passwordVisibility ? faEyeSlash : faEye}
+            size={20}
+            color="#9ca3af"
+          />
+        </Pressable>
+      </View>
 
       <View style={tw`mt-0`}>
         <CustomButton

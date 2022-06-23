@@ -7,6 +7,9 @@ import {
   Image,
   TextInput,
   StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
 } from 'react-native';
 import React from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -15,12 +18,16 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import tw from 'twrnc';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons/faArrowLeft';
+import {faEye, faEyeSlash} from '@fortawesome/free-regular-svg-icons';
 
 // ** Import styles
 import styles from '../../assets/styles/stylesheet';
 
 // ** Import custom components
 import BackgroundOverlay from '../../components/bg-overlay';
+
+// ** Import Hooks
+import {useTogglePasswordVisibility} from '../../hook/useTogglePasswordVisibility';
 
 // ** Import constants
 import Images from '../../constants/Images';
@@ -80,6 +87,9 @@ const BoxContainer = (props: any) => {
   const [email, onChangeEmail] = React.useState('');
   const [password, onChangePassword] = React.useState('');
 
+  const {passwordVisibility, handlePasswordVisibility} =
+    useTogglePasswordVisibility({});
+
   return (
     <View style={styles.box_form}>
       <View>
@@ -92,15 +102,26 @@ const BoxContainer = (props: any) => {
         />
       </View>
 
-      <View style={tw`mt-2`}>
+      <View style={tw`mt-2 relative`}>
         <Text style={tw`ml-[15px]`}>Password</Text>
         <TextInput
           style={CustomStyles.input}
           onChangeText={onChangePassword}
           value={password}
           placeholder="Password"
-          secureTextEntry={true}
+          secureTextEntry={!passwordVisibility}
+          enablesReturnKeyAutomatically
         />
+
+        <Pressable
+          style={tw`absolute top-[45px] right-[25px]`}
+          onPress={handlePasswordVisibility}>
+          <FontAwesomeIcon
+            icon={passwordVisibility ? faEyeSlash : faEye}
+            size={20}
+            color="#9ca3af"
+          />
+        </Pressable>
       </View>
 
       <View style={tw`mt-0`}>

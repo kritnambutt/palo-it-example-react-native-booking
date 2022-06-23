@@ -72,11 +72,13 @@ export interface FormInputProps {
   value?: any;
   placeholder?: any;
   secureTextEntry?: boolean;
+  rootState?: any;
+  setRootState?: any;
 }
 
 export interface onChangeInputProps {
   value?: any;
-  stateName?: String;
+  stateName?: any;
 }
 
 const CustomButton = ({
@@ -112,16 +114,21 @@ const FormInput = ({
   label,
   placeholder,
   stateName,
-  onChange,
   value,
   secureTextEntry = false,
+  rootState,
+  setRootState,
 }: FormInputProps) => {
+  const onChangeInput = ({value, stateName}: onChangeInputProps) => {
+    setRootState({[stateName]: value});
+  };
+
   return (
     <View style={tw`mt-2`}>
       <Text style={tw`ml-[15px]`}>{label}</Text>
       <TextInput
         style={CustomStyles.input}
-        onChangeText={onChange}
+        onChangeText={value => onChangeInput({value, stateName})}
         value={value}
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}
@@ -172,8 +179,12 @@ const BoxContainer = (props: any) => {
     useTogglePasswordVisibility({});
 
   const onChangeInput = ({value, stateName = ''}: onChangeInputProps) => {
-    console.log('onChangeInput: ' + JSON.stringify({value, stateName}));
     setState({[stateName]: value});
+  };
+
+  const defaultPropsInput = {
+    setRootState: setState,
+    rootState: state,
   };
 
   return (
@@ -182,13 +193,23 @@ const BoxContainer = (props: any) => {
         label="First Name"
         stateName="firstname"
         placeholder="firstname"
+        value={firstname}
+        {...defaultPropsInput}
       />
       <FormInput
         label="Last Name"
         stateName="lastname"
         placeholder="lastname"
+        value={lastname}
+        {...defaultPropsInput}
       />
-      <FormInput label="Email" stateName="email" placeholder="email" />
+      <FormInput
+        label="Email"
+        stateName="email"
+        placeholder="email"
+        value={email}
+        {...defaultPropsInput}
+      />
       <View style={tw`mt-2 relative`}>
         <Text style={tw`ml-[15px]`}>Password</Text>
         <TextInput

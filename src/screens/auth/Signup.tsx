@@ -9,7 +9,7 @@ import {
   Pressable,
   StyleSheet,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 // ** Import Thrid party
@@ -29,7 +29,11 @@ import {useTogglePasswordVisibility} from '../../hook/useTogglePasswordVisibilit
 
 // ** Import constants
 import Images from '../../constants/Images';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native-gesture-handler';
+import {validateEmail, validatePassword} from '../../utility/validate';
 
 const {width, height} = Dimensions.get('screen');
 
@@ -63,6 +67,7 @@ export interface CustomButtonProps {
   outlined?: boolean;
   title?: String;
   color?: 'success';
+  disabled?: boolean;
 }
 
 export interface FormInputProps {
@@ -86,9 +91,13 @@ const CustomButton = ({
   title,
   outlined = false,
   color = 'success',
+  disabled = false,
 }: CustomButtonProps) => {
+  const ViewButton =
+    disabled === true ? TouchableOpacity : TouchableWithoutFeedback;
+
   return (
-    <TouchableOpacity
+    <ViewButton
       style={tw.style(
         `mt-4 ml-[10px] flex justify-center items-center rounded-lg`,
         {
@@ -96,17 +105,21 @@ const CustomButton = ({
           height: 60,
         },
         outlined && `border-2 ${color === 'success' && 'border-[#68c99e]'}`,
-        !outlined && color === 'success' && 'bg-[#68c99e]',
+        !outlined && color === 'success' && !disabled
+          ? 'bg-[#d2d3cd]'
+          : 'bg-[#68c99e]',
       )}
       onPress={onPress}>
       <Text
         style={tw.style(
           `text-base font-semibold`,
-          outlined && color === 'success' ? 'text-[#68c99e]' : 'text-white',
+          outlined && color === 'success' && !disabled
+            ? 'text-[#68c99e]'
+            : 'text-white',
         )}>
         {title}
       </Text>
-    </TouchableOpacity>
+    </ViewButton>
   );
 };
 
@@ -182,6 +195,15 @@ const BoxContainer = (props: any) => {
     setState({[stateName]: value});
   };
 
+  const validateForm = useMemo(() => {
+    var checkEmail = validateEmail(email);
+    var checkPassword = validatePassword(password);
+    var checkFirstname = firstname ? true : false;
+    var checkLastname = lastname ? true : false;
+
+    return checkEmail && checkPassword && checkFirstname && checkLastname;
+  }, [state]);
+
   const defaultPropsInput = {
     setRootState: setState,
     rootState: state,
@@ -237,6 +259,7 @@ const BoxContainer = (props: any) => {
           onPress={() => {}}
           title="Create Account"
           color="success"
+          disabled={validateForm}
         />
       </View>
     </View>

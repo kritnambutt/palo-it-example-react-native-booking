@@ -11,6 +11,10 @@ import {
 } from 'react-native';
 import React, {useState, useEffect, useMemo} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native-gesture-handler';
 
 // ** Import Thrid party
 import tw from 'twrnc';
@@ -18,21 +22,13 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons/faArrowLeft';
 import {faEye, faEyeSlash} from '@fortawesome/free-regular-svg-icons';
 
-// ** Import styles
-import styles from '../../assets/styles/stylesheet';
-
 // ** Import custom components
 import BackgroundOverlay from '../../components/bg-overlay';
 
 // ** Import Hooks
 import {useTogglePasswordVisibility} from '../../hook/useTogglePasswordVisibility';
 
-// ** Import constants
-import Images from '../../constants/Images';
-import {
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-} from 'react-native-gesture-handler';
+// ** Import Utils
 import {validateEmail, validatePassword} from '../../utility/validate';
 
 const {width, height} = Dimensions.get('screen');

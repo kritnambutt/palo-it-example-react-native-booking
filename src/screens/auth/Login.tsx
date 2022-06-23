@@ -9,9 +9,12 @@ import {
   StyleSheet,
 } from 'react-native';
 import React from 'react';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 // ** Import Thrid party
 import tw from 'twrnc';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faArrowLeft} from '@fortawesome/free-solid-svg-icons/faArrowLeft';
 
 // ** Import styles
 import styles from '../../assets/styles/stylesheet';
@@ -103,9 +106,12 @@ const BoxContainer = (props: any) => {
       <View style={tw`mt-0`}>
         <CustomButton onPress={() => {}} title="Login" color="success" />
         <TouchableOpacity
-          style={tw`mt-2 flex justify-center items-center`}
-          onPress={() => props.navigation.navigate('Landing')}>
-          <Text style={tw`text-lg`}>{'Back'}</Text>
+          style={tw`mt-3 ml-[10px] flex flex-row justify-start items-center`}
+          onPress={() => {
+            props.navigation.navigate('Landing');
+          }}>
+          <FontAwesomeIcon icon={faArrowLeft} size={20} color="#000000" />
+          <Text style={tw`ml-2 text-lg`}>Back</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -113,6 +119,8 @@ const BoxContainer = (props: any) => {
 };
 
 const HeaderSection = (props: any) => {
+  const insets = useSafeAreaInsets();
+
   return (
     <View style={tw`absolute top-24 left-5 z-40`}>
       <Image

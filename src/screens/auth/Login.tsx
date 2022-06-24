@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Pressable,
+  Alert,
 } from 'react-native';
 import React from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -19,6 +20,10 @@ import tw from 'twrnc';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons/faArrowLeft';
 import {faEye, faEyeSlash} from '@fortawesome/free-regular-svg-icons';
+
+// ** Import State & Actions
+import {useDispatch, useSelector} from 'react-redux';
+import {login} from '../../redux/auth/actionCreator';
 
 // ** Import styles
 import styles from '../../assets/styles/stylesheet';
@@ -84,11 +89,46 @@ const CustomButton = ({
 };
 
 const BoxContainer = (props: any) => {
+  const dispatch = useDispatch();
+
+  const {loading_login, error_login} = useSelector((state: any) => {
+    return {
+      loading_login: state.auth.loading_login,
+      error_login: state.auth.error_login,
+    };
+  });
+
   const [email, onChangeEmail] = React.useState('');
   const [password, onChangePassword] = React.useState('');
 
   const {passwordVisibility, handlePasswordVisibility} =
     useTogglePasswordVisibility({});
+
+  const onClickLogin = () => {
+    const params = {email, password};
+    dispatch(
+      login({
+        params,
+        callbackSuccess: callbackSuccessLogin,
+        callbackError: callbackErrorLogin,
+      }),
+    );
+  };
+
+  const callbackSuccessLogin = () => {
+    props.navigation.navigate('room', {screen: 'RoomSearch'});
+  };
+
+  const callbackErrorLogin = () => {
+    Alert.alert('Login Failed', 'Email is incorrect!', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]);
+  };
 
   return (
     <View style={styles.box_form}>
@@ -125,7 +165,7 @@ const BoxContainer = (props: any) => {
       </View>
 
       <View style={tw`mt-0`}>
-        <CustomButton onPress={() => {}} title="Login" color="success" />
+        <CustomButton onPress={onClickLogin} title="Login" color="success" />
         <TouchableOpacity
           style={tw`mt-3 ml-[10px] flex flex-row justify-start items-center`}
           onPress={() => {

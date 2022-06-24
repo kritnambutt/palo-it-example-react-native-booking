@@ -1,5 +1,5 @@
 import {Animated, Dimensions, Easing, View} from 'react-native';
-import React from 'react';
+import React, {useMemo} from 'react';
 
 // ** Import react-navigation
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -19,6 +19,9 @@ import BookingHistory from '../screens/booking/BookingHistory';
 // stack screen for room
 import RoomSearch from '../screens/room/RoomSearch';
 import LandingScreen from '../screens/auth/Landing';
+
+// ** Import hooks
+import useAuth from '../hook/useAuth';
 
 const Stack = createStackNavigator();
 
@@ -93,6 +96,13 @@ const RoomStack = () => {
 };
 
 const ScreenNavigation = () => {
+  const hookAuth = useAuth();
+  const isLogin = useMemo(() => {
+    (async () => {
+      return await hookAuth.isAuth();
+    })();
+  }, [hookAuth]);
+
   return (
     <NavigationContainer>
       <Stack.Navigator>

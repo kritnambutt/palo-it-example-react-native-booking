@@ -8,6 +8,7 @@ import {
   TextInput,
   Pressable,
   StyleSheet,
+  Alert,
 } from 'react-native';
 import React, {useState, useEffect, useMemo} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -21,6 +22,10 @@ import tw from 'twrnc';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons/faArrowLeft';
 import {faEye, faEyeSlash} from '@fortawesome/free-regular-svg-icons';
+
+// ** Import State & Actions
+import {useDispatch, useSelector} from 'react-redux';
+import {signup} from '../../redux/auth/actionCreator';
 
 // ** Import custom components
 import BackgroundOverlay from '../../components/bg-overlay';
@@ -172,6 +177,8 @@ const HeaderSection = (props: any) => {
 };
 
 const BoxContainer = (props: any) => {
+  const dispatch = useDispatch();
+
   const [state, _setState] = useState({
     email: '',
     password: '',
@@ -199,6 +206,34 @@ const BoxContainer = (props: any) => {
 
     return checkEmail && checkPassword && checkFirstname && checkLastname;
   }, [state]);
+
+  const onClickSignup = () => {
+    const params = {email, password, firstname, lastname};
+    dispatch(
+      signup({
+        params,
+        callbackSuccess: callbackSuccessSignup,
+        callbackError: callbackErrorSignup,
+      }),
+    );
+  };
+
+  const callbackSuccessSignup = () => {
+    Alert.alert('Sign Up Success', '', [
+      {text: 'OK', onPress: () => props.navigation.navigate('Login')},
+    ]);
+  };
+
+  const callbackErrorSignup = (err: any) => {
+    Alert.alert('Sign Up Error', 'invalid', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]);
+  };
 
   const defaultPropsInput = {
     setRootState: setState,
@@ -252,7 +287,7 @@ const BoxContainer = (props: any) => {
 
       <View style={tw`mt-0`}>
         <CustomButton
-          onPress={() => {}}
+          onPress={() => (validateForm ? onClickSignup() : {})}
           title="Create Account"
           color="success"
           disabled={validateForm}

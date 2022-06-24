@@ -2,7 +2,7 @@ import axios from 'axios';
 import {BACKEND_HOST} from '../config/api/index';
 // import authHeader from '../config/api/auth-header';
 // import { logOut } from '../redux/authentication/actionCreator';
-// import store from '../redux/store';
+import store from '../redux/store';
 // import { checkJWTToken } from '../utility/responseHelper';
 
 const backendHost = BACKEND_HOST;

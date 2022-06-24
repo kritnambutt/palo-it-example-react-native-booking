@@ -1,5 +1,10 @@
 import {combineReducers} from 'redux';
 
-const rootReducers = combineReducers({});
+// ** Import state store stack
+import authReducers from './auth/reducers';
+
+const rootReducers = combineReducers({
+  auth: authReducers,
+});
 
 export default rootReducers;

@@ -10,6 +10,7 @@
 
 import React, {useState} from 'react';
 import {Image} from 'react-native';
+import {Provider} from 'react-redux';
 import AppLoading from 'expo-app-loading';
 import {useFonts} from 'expo-font';
 import {Asset} from 'expo-asset';
@@ -37,7 +38,13 @@ import {
 // import {enableScreens} from 'react-native-screens';
 // enableScreens();
 
+// ** Import Store
+import store from './redux/store';
+
+// ** Import navigation screens
 import Screens from './navigation/Screens';
+
+// ** Import assets
 import {Images, AppTheme} from './constants';
 
 // cache app images
@@ -76,7 +83,7 @@ export default () => {
     Rubik_900Black_Italic,
   });
 
-  function _loadResourcesAsync() {
+  function _loadResourcesAsync(): Promise<void[]> {
     return Promise.all([...cacheImages(assetImages)]);
   }
 
@@ -100,11 +107,13 @@ export default () => {
     );
   } else if (fontsLoaded) {
     return (
-      <GalioProvider theme={AppTheme}>
-        <Block flex>
-          <Screens />
-        </Block>
-      </GalioProvider>
+      <Provider store={store}>
+        <GalioProvider theme={AppTheme}>
+          <Block flex>
+            <Screens />
+          </Block>
+        </GalioProvider>
+      </Provider>
     );
   } else {
     return null;
